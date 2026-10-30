@@ -6,7 +6,7 @@ BUCKET="backup-recovery-2026"
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 BACKUP_NAME="backup-$TIMESTAMP.tar.gz"
 
-tar -czf "/tmp/$BACKUP_NAME" -C "$SOURCE_DIR" project.txt
+tar -czf "/tmp/$BACKUP_NAME" -C "$(dirname "$SOURCE_DIR")" "$(basename "$SOURCE_DIR")"
 
 aws s3 cp "/tmp/$BACKUP_NAME" "s3://$BUCKET/backups/$BACKUP_NAME"
 
