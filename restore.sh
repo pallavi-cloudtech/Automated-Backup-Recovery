@@ -6,8 +6,7 @@ RESTORE_DIR="/home/ec2-user/recovered-backup"
 
 mkdir -p "$RESTORE_DIR"
 
-LATEST_BACKUP=$(aws s3 ls "s3://$BUCKET/backups/" | sort | tail -n 1 | awk '{print $4}')
-
+LATEST_BACKUP=$(aws s3 ls "s3://$BUCKET/backups/" | sort -k1,1 -k2,2 | tail -n 1 | awk '{print $4}')
 if [ -z "$LATEST_BACKUP" ]; then
     echo "No backup found in S3!"
     exit 1
